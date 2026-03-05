@@ -88,6 +88,7 @@ function FeatureCard({ feat, i }) {
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.55, delay: i * 0.07 }}
             whileHover={{ y: -5, transition: { duration: 0.2 } }}
+            className="feature-card"
             style={{
                 background: 'rgba(255,255,255,0.025)',
                 border: '1px solid rgba(255,255,255,0.07)',
@@ -150,7 +151,7 @@ export default function FeaturesSection() {
                     sizes="(max-width: 1248px) 100vw, 1200px"
                 />
                 <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(120deg, rgba(5,5,8,0.88) 0%, rgba(5,5,8,0.5) 55%, rgba(5,5,8,0.75) 100%)' }} />
-                <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '0 56px' }}>
+                <div className="features-banner-text" style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '0 56px' }}>
                     <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '4px 14px', borderRadius: 99, background: 'rgba(14,165,233,0.15)', border: '1px solid rgba(14,165,233,0.3)', marginBottom: 18, fontSize: 11.5, fontWeight: 700, color: '#7dd3fc', textTransform: 'uppercase', letterSpacing: '0.1em', width: 'fit-content' }}>
                         ✦ Features
                     </div>

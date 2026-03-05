@@ -9,6 +9,7 @@ import {
     RefreshCw, ThumbsUp, ThumbsDown, FileText, ShieldCheck,
     Droplets, BookOpen, Menu, ChevronDown, ArrowRight
 } from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
 
 // ── Bot definitions ────────────────────────────────────────────────────────────
 const BOTS = {
@@ -217,6 +218,7 @@ function MessageBubble({ message, bot }) {
 // ── Bot selector screen ────────────────────────────────────────────────────────
 function BotSelector({ onSelect }) {
     const [isMobile, setIsMobile] = useState(false);
+    const { isDark } = useTheme();
     useEffect(() => {
         const check = () => setIsMobile(window.innerWidth < 600);
         check();
@@ -230,6 +232,16 @@ function BotSelector({ onSelect }) {
     const gap = isMobile ? 8 : 14;
     const mb = isMobile ? 20 : 36;
     const outerPad = isMobile ? '16px 14px' : '40px 24px';
+
+    // Theme tokens
+    const headingColor = isDark ? '#f0f0ff' : '#0d0d2e';
+    const subColor = isDark ? 'rgba(200,200,240,0.6)' : 'rgba(20,20,70,0.6)';
+    const icedBg = isDark ? 'linear-gradient(135deg, rgba(14,165,233,0.12) 0%, rgba(6,182,212,0.06) 100%)' : 'linear-gradient(135deg, rgba(14,165,233,0.08) 0%, rgba(6,182,212,0.04) 100%)';
+    const iitrBg = isDark ? 'linear-gradient(135deg, rgba(16,185,129,0.10) 0%, rgba(5,150,105,0.05) 100%)' : 'linear-gradient(135deg, rgba(16,185,129,0.07) 0%, rgba(5,150,105,0.03) 100%)';
+    const stripBorder = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(14,165,233,0.15)';
+    const halfBorder = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(14,165,233,0.10)';
+    const labelBlue = isDark ? '#7dd3fc' : '#0284c7';
+    const labelGreen = isDark ? '#6ee7b7' : '#059669';
 
     return (
         <motion.div
@@ -251,46 +263,46 @@ function BotSelector({ onSelect }) {
                 <div style={{
                     display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 0,
                     borderRadius: 20, overflow: 'hidden',
-                    border: '1px solid rgba(255,255,255,0.08)',
+                    border: `1px solid ${stripBorder}`,
                     marginBottom: mb,
-                    boxShadow: '0 8px 40px rgba(0,0,0,0.4)',
+                    boxShadow: isDark ? '0 8px 40px rgba(0,0,0,0.4)' : '0 4px 24px rgba(14,165,233,0.1)',
                 }}>
-                    {/* ICED half */}
-                    <div style={{
-                        flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-                        gap, padding: pad,
-                        background: 'linear-gradient(135deg, rgba(14,165,233,0.12) 0%, rgba(6,182,212,0.06) 100%)',
-                        borderRight: '1px solid rgba(255,255,255,0.06)',
-                    }}>
-                        <div style={{ width: logoSize, height: logoSize, borderRadius: 16, background: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 6, boxShadow: '0 0 24px rgba(14,165,233,0.25)' }}>
-                            <Image src="/ICED.png" alt="ICED" width={imgSize} height={imgSize} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
-                        </div>
-                        <div>
-                            <div style={{ fontSize: isMobile ? 11 : 13, fontWeight: 700, color: '#7dd3fc', marginBottom: 2 }}>ICED</div>
-                            {!isMobile && <div style={{ fontSize: 11, color: 'rgba(200,200,240,0.5)', lineHeight: 1.4 }}>International Centre<br />for Dams</div>}
-                        </div>
-                    </div>
-
                     {/* IIT Roorkee half */}
                     <div style={{
                         flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
                         gap, padding: pad,
-                        background: 'linear-gradient(135deg, rgba(16,185,129,0.1) 0%, rgba(5,150,105,0.05) 100%)',
+                        background: iitrBg,
+                        borderRight: `1px solid ${halfBorder}`,
                     }}>
                         <div style={{ width: logoSize, height: logoSize, borderRadius: 16, background: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 6, boxShadow: '0 0 24px rgba(16,185,129,0.25)' }}>
                             <Image src="/IITR_logo.gif" alt="IIT Roorkee" width={imgSize} height={imgSize} style={{ width: '100%', height: '100%', objectFit: 'contain' }} unoptimized />
                         </div>
                         <div>
-                            <div style={{ fontSize: isMobile ? 11 : 13, fontWeight: 700, color: '#6ee7b7', marginBottom: 2 }}>IIT Roorkee</div>
-                            {!isMobile && <div style={{ fontSize: 11, color: 'rgba(200,200,240,0.5)', lineHeight: 1.4 }}>Indian Institute of<br />Technology Roorkee</div>}
+                            <div style={{ fontSize: isMobile ? 11 : 13, fontWeight: 700, color: labelGreen, marginBottom: 2 }}>IIT Roorkee</div>
+                            {!isMobile && <div style={{ fontSize: 11, color: subColor, lineHeight: 1.4 }}>Indian Institute of<br />Technology Roorkee</div>}
+                        </div>
+                    </div>
+
+                    {/* ICED half */}
+                    <div style={{
+                        flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+                        gap, padding: pad,
+                        background: icedBg,
+                    }}>
+                        <div style={{ width: logoSize, height: logoSize, borderRadius: 16, background: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 6, boxShadow: '0 0 24px rgba(14,165,233,0.25)' }}>
+                            <Image src="/ICED.png" alt="ICED" width={imgSize} height={imgSize} style={{ width: '100%', height: '100%', objectFit: 'contain' }} unoptimized />
+                        </div>
+                        <div>
+                            <div style={{ fontSize: isMobile ? 11 : 13, fontWeight: 700, color: labelBlue, marginBottom: 2 }}>ICED</div>
+                            {!isMobile && <div style={{ fontSize: 11, color: subColor, lineHeight: 1.4 }}>International Centre<br />for Dams</div>}
                         </div>
                     </div>
                 </div>
 
-                <h1 style={{ fontSize: isMobile ? '22px' : 'clamp(26px,3.5vw,42px)', fontWeight: 800, color: '#f0f0ff', fontFamily: 'Space Grotesk, sans-serif', letterSpacing: '-1px', marginBottom: 10 }}>
+                <h1 style={{ fontSize: isMobile ? '22px' : 'clamp(26px,3.5vw,42px)', fontWeight: 800, color: headingColor, fontFamily: 'Space Grotesk, sans-serif', letterSpacing: '-1px', marginBottom: 10 }}>
                     Which assistant do you need?
                 </h1>
-                <p style={{ color: 'rgba(200,200,240,0.6)', fontSize: isMobile ? 13 : 14.5, maxWidth: 460, margin: '0 auto', lineHeight: 1.6 }}>
+                <p style={{ color: subColor, fontSize: isMobile ? 13 : 14.5, maxWidth: 460, margin: '0 auto', lineHeight: 1.6 }}>
                     Both assistants are powered by official CWC documents and government publications. Pick the one that fits your query.
                 </p>
             </motion.div>
@@ -379,6 +391,23 @@ export default function ChatPage() {
     const messagesEndRef = useRef(null);
     const textareaRef = useRef(null);
     const fileInputRef = useRef(null);
+    const { isDark } = useTheme();
+
+    // Sidebar theme tokens
+    const sidebarBg = isDark ? 'rgba(10,10,20,0.97)' : 'rgba(235,246,255,0.98)';
+    const sidebarBorder = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(14,165,233,0.14)';
+    const labelMuted = isDark ? 'rgba(200,200,240,0.45)' : 'rgba(20,20,70,0.45)';
+    const textPrimary = isDark ? 'white' : '#0d0d2e';
+    const textSecondary = isDark ? 'rgba(220,220,255,0.75)' : 'rgba(20,20,70,0.75)';
+    const textMuted = isDark ? 'rgba(200,200,240,0.55)' : 'rgba(20,20,70,0.50)';
+    const rowHoverBg = isDark ? 'rgba(255,255,255,0.05)' : 'rgba(14,165,233,0.06)';
+    const userCardBg = isDark ? 'rgba(255,255,255,0.03)' : 'rgba(14,165,233,0.05)';
+    const userCardBord = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(14,165,233,0.12)';
+    const iconBg = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(14,165,233,0.10)';
+    const dividerColor = isDark ? 'rgba(255,255,255,0.12)' : 'rgba(14,165,233,0.18)';
+    const newChatBg = isDark ? 'linear-gradient(135deg, rgba(139,92,246,0.2), rgba(59,130,246,0.12))' : 'linear-gradient(135deg, rgba(14,165,233,0.15), rgba(6,182,212,0.08))';
+    const newChatBord = isDark ? 'rgba(139,92,246,0.3)' : 'rgba(14,165,233,0.3)';
+    const newChatColor = isDark ? 'white' : '#0d0d2e';
 
     // Detect mobile and auto-collapse sidebar
     useEffect(() => {
@@ -450,13 +479,13 @@ export default function ChatPage() {
                 />
             )}
 
-            {/* ── SIDEBAR ─────────────────────────────────────────────────────── */}
+            {/* ── SIDEBAR ──────────────────────────────────────────────────── */}
             <motion.aside
                 animate={{ x: sidebarOpen ? 0 : -280, opacity: sidebarOpen ? 1 : 0 }}
                 transition={{ duration: 0.25, ease: 'easeInOut' }}
                 style={{
-                    background: 'rgba(10,10,20,0.97)',
-                    borderRight: '1px solid rgba(255,255,255,0.06)',
+                    background: sidebarBg,
+                    borderRight: `1px solid ${sidebarBorder}`,
                     display: 'flex', flexDirection: 'column',
                     overflow: 'hidden', flexShrink: 0,
                     position: isMobile ? 'fixed' : 'relative',
@@ -468,44 +497,46 @@ export default function ChatPage() {
             >
                 <div style={{ width: 260, display: 'flex', flexDirection: 'column', height: '100%' }}>
                     {/* Header */}
-                    <div style={{ padding: '14px 12px 12px', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                    <div style={{ padding: '14px 12px 12px', borderBottom: `1px solid ${sidebarBorder}` }}>
                         {/* Institution logos row */}
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12, paddingBottom: 12, borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12, paddingBottom: 12, borderBottom: `1px solid ${userCardBord}` }}>
                             <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: 6 }}>
-                                {/* ICED logo */}
-                                <div style={{ width: 36, height: 36, borderRadius: 8, background: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 3, flexShrink: 0, boxShadow: '0 0 10px rgba(14,165,233,0.2)' }}>
-                                    <Image src="/ICED.png" alt="ICED" width={30} height={30} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
-                                </div>
-                                {/* divider pip */}
-                                <div style={{ width: 1, height: 20, background: 'rgba(255,255,255,0.12)', flexShrink: 0 }} />
-                                {/* IIT Roorkee logo */}
                                 <div style={{ width: 36, height: 36, borderRadius: 8, background: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 3, flexShrink: 0, boxShadow: '0 0 10px rgba(16,185,129,0.2)' }}>
                                     <Image src="/IITR_logo.gif" alt="IIT Roorkee" width={30} height={30} style={{ width: '100%', height: '100%', objectFit: 'contain' }} unoptimized />
                                 </div>
+                                <div style={{ width: 1, height: 20, background: dividerColor, flexShrink: 0 }} />
+                                <div style={{ width: 36, height: 36, borderRadius: 8, background: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 3, flexShrink: 0, boxShadow: '0 0 10px rgba(14,165,233,0.2)' }}>
+                                    <Image src="/ICED.png" alt="ICED" width={30} height={30} style={{ width: '100%', height: '100%', objectFit: 'contain' }} unoptimized />
+                                </div>
                                 <div style={{ minWidth: 0 }}>
-                                    <div style={{ fontSize: 10, fontWeight: 600, color: 'rgba(200,200,240,0.45)', lineHeight: 1.3, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>ICED · IIT Roorkee</div>
+                                    <div style={{ fontSize: 10, fontWeight: 600, color: labelMuted, lineHeight: 1.3, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>IIT Roorkee · ICED</div>
                                 </div>
                             </div>
                         </div>
                         {/* Brand link */}
-                        <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 8, textDecoration: 'none' }}>
-                            <div style={{ width: 26, height: 26, borderRadius: 7, background: 'linear-gradient(135deg,#0ea5e9,#059669)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 0 10px rgba(14,165,233,0.3)', flexShrink: 0 }}>
-                                <Droplets size={13} color="white" />
+                        <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+                            <div style={{
+                                height: 30, width: 'auto',
+                                display: 'flex', alignItems: 'center',
+                                borderRadius: 8,
+                                padding: isDark ? '2px 5px' : '0px',
+                                background: isDark ? 'rgba(255,255,255,0.9)' : 'transparent',
+                            }}>
+                                <img src="/DamChat Logo copy.png" alt="DamChat" style={{ height: 26, width: 'auto', objectFit: 'contain', display: 'block' }} />
                             </div>
-                            <span style={{ fontSize: 15, fontWeight: 700, color: 'white', fontFamily: 'Space Grotesk' }}>Dam<span style={{ background: 'linear-gradient(135deg,#0ea5e9,#10b981)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Chat</span></span>
                         </Link>
                     </div>
 
                     {/* Bot switcher pills */}
                     <div style={{ padding: '12px 8px 8px' }}>
-                        <p style={{ fontSize: 11, fontWeight: 600, color: 'rgba(200,200,240,0.4)', textTransform: 'uppercase', letterSpacing: '0.08em', padding: '0 8px 8px' }}>Assistants</p>
+                        <p style={{ fontSize: 11, fontWeight: 600, color: labelMuted, textTransform: 'uppercase', letterSpacing: '0.08em', padding: '0 8px 8px' }}>Assistants</p>
                         {Object.values(BOTS).map((b) => {
                             const BIcon = b.icon;
                             const isActive = selectedBotId === b.id;
                             return (
                                 <motion.button
                                     key={b.id}
-                                    whileHover={{ background: isActive ? b.accentSoft : 'rgba(255,255,255,0.05)' }}
+                                    whileHover={{ background: isActive ? b.accentSoft : rowHoverBg }}
                                     onClick={() => handleSelectBot(b.id)}
                                     style={{
                                         width: '100%', display: 'flex', alignItems: 'center', gap: 10,
@@ -516,12 +547,12 @@ export default function ChatPage() {
                                         marginBottom: 4,
                                     }}
                                 >
-                                    <div style={{ width: 26, height: 26, borderRadius: 8, background: isActive ? b.gradient : 'rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                                        <BIcon size={13} color={isActive ? 'white' : 'rgba(200,200,240,0.5)'} />
+                                    <div style={{ width: 26, height: 26, borderRadius: 8, background: isActive ? b.gradient : iconBg, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                                        <BIcon size={13} color={isActive ? 'white' : (isDark ? 'rgba(200,200,240,0.5)' : 'rgba(20,20,70,0.5)')} />
                                     </div>
                                     <div style={{ textAlign: 'left' }}>
-                                        <div style={{ fontSize: 13, fontWeight: 600, color: isActive ? '#f0f0ff' : 'rgba(200,200,240,0.7)' }}>{b.name}</div>
-                                        <div style={{ fontSize: 11, color: isActive ? b.accent : 'rgba(200,200,240,0.4)' }}>{b.tagline}</div>
+                                        <div style={{ fontSize: 13, fontWeight: 600, color: isActive ? (isDark ? '#f0f0ff' : '#0d0d2e') : textSecondary }}>{b.name}</div>
+                                        <div style={{ fontSize: 11, color: isActive ? b.accent : labelMuted }}>{b.tagline}</div>
                                     </div>
                                 </motion.button>
                             );
@@ -532,7 +563,7 @@ export default function ChatPage() {
                     <div style={{ padding: '4px 8px 8px' }}>
                         <motion.button
                             onClick={newChat} whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.98 }}
-                            style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, padding: '9px', borderRadius: 12, background: 'linear-gradient(135deg, rgba(139,92,246,0.2), rgba(59,130,246,0.12))', border: '1px solid rgba(139,92,246,0.3)', color: 'white', fontSize: 13, fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit' }}
+                            style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, padding: '9px', borderRadius: 12, background: newChatBg, border: `1px solid ${newChatBord}`, color: newChatColor, fontSize: 13, fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit' }}
                         >
                             <Plus size={14} /> New Chat
                         </motion.button>
@@ -540,7 +571,7 @@ export default function ChatPage() {
 
                     {/* History */}
                     <div style={{ flex: 1, overflowY: 'auto', padding: '8px' }}>
-                        <p style={{ fontSize: 11, fontWeight: 600, color: 'rgba(200,200,240,0.45)', textTransform: 'uppercase', letterSpacing: '0.08em', padding: '8px 8px 6px' }}>Recent</p>
+                        <p style={{ fontSize: 11, fontWeight: 600, color: labelMuted, textTransform: 'uppercase', letterSpacing: '0.08em', padding: '8px 8px 6px' }}>Recent</p>
                         {history.map((chat) => {
                             const chatBot = BOTS[chat.bot];
                             const CIcon = chatBot?.icon || MessageSquare;
@@ -548,13 +579,13 @@ export default function ChatPage() {
                                 <motion.button
                                     key={chat.id}
                                     onClick={() => { setActiveChat(chat.id); if (chat.bot) setSelectedBotId(chat.bot); }}
-                                    whileHover={{ background: 'rgba(255,255,255,0.05)' }}
-                                    style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 8, padding: '9px 10px', borderRadius: 10, border: 'none', background: activeChat === chat.id ? 'rgba(139,92,246,0.1)' : 'transparent', cursor: 'pointer', textAlign: 'left', fontFamily: 'inherit', transition: 'background 0.15s' }}
+                                    whileHover={{ background: rowHoverBg }}
+                                    style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 8, padding: '9px 10px', borderRadius: 10, border: 'none', background: activeChat === chat.id ? (isDark ? 'rgba(139,92,246,0.1)' : 'rgba(14,165,233,0.08)') : 'transparent', cursor: 'pointer', textAlign: 'left', fontFamily: 'inherit', transition: 'background 0.15s' }}
                                 >
-                                    <CIcon size={13} color={chatBot?.accent || 'rgba(200,200,240,0.4)'} style={{ flexShrink: 0 }} />
+                                    <CIcon size={13} color={chatBot?.accent || labelMuted} style={{ flexShrink: 0 }} />
                                     <div style={{ flex: 1, minWidth: 0 }}>
-                                        <div style={{ fontSize: 12.5, fontWeight: 500, color: activeChat === chat.id ? 'white' : 'rgba(220,220,255,0.75)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{chat.title}</div>
-                                        <div style={{ fontSize: 10.5, color: 'rgba(200,200,240,0.4)' }}>{chat.date}</div>
+                                        <div style={{ fontSize: 12.5, fontWeight: 500, color: activeChat === chat.id ? textPrimary : textSecondary, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{chat.title}</div>
+                                        <div style={{ fontSize: 10.5, color: labelMuted }}>{chat.date}</div>
                                     </div>
                                 </motion.button>
                             );
@@ -562,16 +593,16 @@ export default function ChatPage() {
                     </div>
 
                     {/* Footer */}
-                    <div style={{ padding: '12px', borderTop: '1px solid rgba(255,255,255,0.06)', display: 'flex', flexDirection: 'column', gap: 4 }}>
-                        <button style={{ display: 'flex', alignItems: 'center', gap: 10, width: '100%', padding: '9px 10px', borderRadius: 10, background: 'none', border: 'none', color: 'rgba(200,200,240,0.65)', fontSize: 13, cursor: 'pointer', fontFamily: 'inherit', textAlign: 'left' }}
-                            onMouseEnter={(e) => e.currentTarget.style.color = 'rgba(255,255,255,0.8)'}
-                            onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(200,200,240,0.65)'}
+                    <div style={{ padding: '12px', borderTop: `1px solid ${sidebarBorder}`, display: 'flex', flexDirection: 'column', gap: 4 }}>
+                        <button style={{ display: 'flex', alignItems: 'center', gap: 10, width: '100%', padding: '9px 10px', borderRadius: 10, background: 'none', border: 'none', color: textMuted, fontSize: 13, cursor: 'pointer', fontFamily: 'inherit', textAlign: 'left' }}
+                            onMouseEnter={(e) => e.currentTarget.style.color = textPrimary}
+                            onMouseLeave={(e) => e.currentTarget.style.color = textMuted}
                         ><Settings size={15} /> Settings</button>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px', borderRadius: 10, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)', cursor: 'pointer' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px', borderRadius: 10, background: userCardBg, border: `1px solid ${userCardBord}`, cursor: 'pointer' }}>
                             <div style={{ width: 30, height: 30, borderRadius: '50%', background: 'linear-gradient(135deg, #8b5cf6, #3b82f6)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 700, color: 'white', flexShrink: 0 }}>U</div>
                             <div style={{ flex: 1, minWidth: 0 }}>
-                                <div style={{ fontSize: 13, fontWeight: 600, color: 'white' }}>User</div>
-                                <div style={{ fontSize: 11, color: 'rgba(200,200,240,0.55)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>user@example.com</div>
+                                <div style={{ fontSize: 13, fontWeight: 600, color: textPrimary }}>User</div>
+                                <div style={{ fontSize: 11, color: textMuted, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>user@example.com</div>
                             </div>
                         </div>
                     </div>

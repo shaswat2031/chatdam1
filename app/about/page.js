@@ -60,13 +60,20 @@ export default function AboutPage() {
                 borderBottom: '1px solid rgba(255,255,255,0.06)',
                 display: 'flex', alignItems: 'center', justifyContent: 'space-between',
             }}>
-                <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
-                    <div style={{ width: 34, height: 34, borderRadius: 10, background: 'linear-gradient(135deg,#0ea5e9,#059669)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 0 16px rgba(14,165,233,0.35)' }}>
-                        <Droplets size={16} color="white" />
+                <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+                    <div style={{
+                        height: 34, width: 'auto',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        borderRadius: 10,
+                        padding: '2px 5px',
+                        background: 'rgba(255,255,255,0.92)'
+                    }}>
+                        <img
+                            src="/DamChat Logo copy.png"
+                            alt="DamChat Logo"
+                            style={{ height: 28, width: 'auto', objectFit: 'contain', display: 'block' }}
+                        />
                     </div>
-                    <span style={{ fontSize: 18, fontWeight: 800, color: 'white', fontFamily: 'Space Grotesk, sans-serif', letterSpacing: '-0.5px' }}>
-                        Dam<span style={{ background: 'linear-gradient(135deg,#0ea5e9,#10b981)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Chat</span>
-                    </span>
                 </Link>
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
@@ -139,7 +146,7 @@ export default function AboutPage() {
                             onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}
                         >
                             <div style={{ width: 110, height: 110, borderRadius: 18, overflow: 'hidden', background: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 8, boxShadow: '0 0 24px rgba(14,165,233,0.15)' }}>
-                                <Image src="/ICED.png" alt="ICED — International Centre for Dams" width={96} height={96} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                                <Image src="/ICED.png" alt="ICED — International Centre for Dams" width={96} height={96} style={{ width: '100%', height: '100%', objectFit: 'contain' }} unoptimized />
                             </div>
                             <div style={{ textAlign: 'center' }}>
                                 <div style={{ fontSize: 13, fontWeight: 700, color: '#f0f0ff', marginBottom: 3 }}>ICED</div>
@@ -270,7 +277,7 @@ export default function AboutPage() {
                         <div style={{ display: 'flex', alignItems: 'center', gap: 20, marginBottom: 32, flexWrap: 'wrap' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 18px', borderRadius: 14, background: 'rgba(14,165,233,0.08)', border: '1px solid rgba(14,165,233,0.2)' }}>
                                 <div style={{ width: 44, height: 44, borderRadius: 10, overflow: 'hidden', background: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 4, flexShrink: 0 }}>
-                                    <Image src="/ICED.png" alt="ICED" width={36} height={36} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                                    <Image src="/ICED.png" alt="ICED" width={36} height={36} style={{ width: '100%', height: '100%', objectFit: 'contain' }} unoptimized />
                                 </div>
                                 <span style={{ fontSize: 13, fontWeight: 600, color: '#7dd3fc' }}>ICED, IIT Roorkee</span>
                             </div>

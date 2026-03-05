@@ -38,16 +38,16 @@
 
 html {
     scroll-behavior: smooth;
-    background-color: #050508;
-    color: #f0f0ff;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
 body {
     font-family: 'Inter', system-ui, sans-serif;
-    background-color: #050508 !important;
-    color: #f0f0ff !important;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
     overflow-x: hidden;
     line-height: 1.6;
     min-height: 100vh;
@@ -366,6 +366,276 @@ h6 {
         radial-gradient(ellipse at 90% 10%, rgba(59, 130, 246, 0.05) 0%, transparent 40%),
         #050508;
 }
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   THEME TRANSITION
+───────────────────────────────────────────────────────────────────────────── */
+html,
+body,
+body * {
+    transition: background-color 0.35s ease, border-color 0.35s ease, color 0.35s ease, box-shadow 0.35s ease !important;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   LIGHT THEME  html[data-theme="light"]
+───────────────────────────────────────────────────────────────────────────── */
+html[data-theme="light"] {
+    color-scheme: light;
+    /* CSS variables — these cascade to body and all children */
+    --bg-primary: #f0f7ff;
+    --bg-secondary: #e6f2ff;
+    --bg-card: rgba(255, 255, 255, 0.85);
+    --border: rgba(14, 165, 233, 0.14);
+    --text-primary: #0d0d2e;
+    --text-secondary: rgba(15, 15, 60, 0.65);
+    --text-muted: rgba(15, 15, 60, 0.40);
+    background-color: #f0f7ff;
+    color: #0d0d2e;
+}
+
+html[data-theme="light"] body {
+    background-color: #f0f7ff;
+    color: #0d0d2e;
+}
+
+/* ── Catch-all: make ALL text dark in light mode ──
+   Gradient elements are safe because they use WebkitTextFillColor:transparent
+   which takes precedence over color, so the gradient still shows correctly. */
+html[data-theme="light"] h1,
+html[data-theme="light"] h2,
+html[data-theme="light"] h3,
+html[data-theme="light"] h4,
+html[data-theme="light"] h5,
+html[data-theme="light"] h6 {
+    color: #0d0d2e !important;
+}
+
+html[data-theme="light"] p {
+    color: #3a3a6a !important;
+}
+
+html[data-theme="light"] span {
+    color: #0d0d2e !important;
+}
+
+html[data-theme="light"] div {
+    color: #0d0d2e !important;
+}
+
+html[data-theme="light"] a {
+    color: #0d0d2e !important;
+}
+
+html[data-theme="light"] li {
+    color: #3a3a6a !important;
+}
+
+/* Restore white text on primary buttons */
+html[data-theme="light"] .btn-primary,
+html[data-theme="light"] .btn-primary * {
+    color: #ffffff !important;
+}
+
+/* Restore white text inside bot-gradient icon badges (icon containers) */
+html[data-theme="light"] svg {
+    color: inherit !important;
+}
+
+/* Restore muted text in specific contexts to a readable dark-muted shade */
+html[data-theme="light"] kbd {
+    color: #3a3a6a !important;
+    background: rgba(0, 0, 0, 0.06) !important;
+    border-color: rgba(0, 0, 0, 0.12) !important;
+}
+
+
+/* ── Section & page backgrounds ── */
+html[data-theme="light"] .hero-mesh {
+    background:
+        radial-gradient(ellipse at 20% 50%, rgba(14, 165, 233, 0.14) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(16, 185, 129, 0.10) 0%, transparent 50%),
+        radial-gradient(ellipse at 60% 80%, rgba(6, 182, 212, 0.07) 0%, transparent 50%),
+        #f0f7ff !important;
+}
+
+html[data-theme="light"] .chat-bg {
+    background:
+        radial-gradient(ellipse at 10% 90%, rgba(14, 165, 233, 0.08) 0%, transparent 40%),
+        radial-gradient(ellipse at 90% 10%, rgba(16, 185, 129, 0.06) 0%, transparent 40%),
+        #e8f3ff !important;
+}
+
+html[data-theme="light"] section {
+    background-color: transparent !important;
+}
+
+
+/* ── Navbar (targets the floating pill) ── */
+html[data-theme="light"] .nav-inner {
+    background: rgba(235, 247, 255, 0.94) !important;
+    border-color: rgba(14, 165, 233, 0.18) !important;
+    box-shadow: 0 4px 24px rgba(14, 165, 233, 0.08) !important;
+}
+
+html[data-theme="light"] .nav-logo-text {
+    color: #0d0d2e !important;
+}
+
+/* Nav links */
+html[data-theme="light"] nav a {
+    color: rgba(15, 15, 50, 0.75) !important;
+}
+
+html[data-theme="light"] nav a:hover {
+    color: #0d0d2e !important;
+}
+
+/* ── Features banner — sits on dark photo overlay, always keep text white ── */
+html[data-theme="light"] .features-banner-text,
+html[data-theme="light"] .features-banner-text h1,
+html[data-theme="light"] .features-banner-text h2,
+html[data-theme="light"] .features-banner-text h3,
+html[data-theme="light"] .features-banner-text p,
+html[data-theme="light"] .features-banner-text div,
+html[data-theme="light"] .features-banner-text span {
+    color: white !important;
+}
+
+/* Feature section group labels (DamChat / CWC Assistant headings below banner) */
+html[data-theme="light"] .feature-group-label {
+    color: #0d0d2e !important;
+}
+
+/* Feature cards in light mode */
+html[data-theme="light"] .feature-card {
+    background: rgba(255, 255, 255, 0.88) !important;
+    border-color: rgba(14, 165, 233, 0.14) !important;
+    box-shadow: 0 4px 24px rgba(14, 165, 233, 0.06) !important;
+}
+
+/* ── Glass utilities ── */
+html[data-theme="light"] .glass {
+    background: rgba(255, 255, 255, 0.75) !important;
+    border: 1px solid rgba(14, 165, 233, 0.14) !important;
+    backdrop-filter: blur(20px) !important;
+}
+
+html[data-theme="light"] .glass-strong {
+    background: rgba(255, 255, 255, 0.92) !important;
+    border: 1px solid rgba(14, 165, 233, 0.2) !important;
+}
+
+/* ── Buttons ── */
+html[data-theme="light"] .btn-secondary {
+    border-color: rgba(14, 165, 233, 0.3) !important;
+    color: #0d0d2e !important;
+}
+
+html[data-theme="light"] .btn-secondary:hover {
+    background: rgba(14, 165, 233, 0.08) !important;
+    border-color: rgba(14, 165, 233, 0.5) !important;
+}
+
+/* ── Feature cards ── */
+html[data-theme="light"] .feature-card {
+    background: rgba(255, 255, 255, 0.82) !important;
+    border-color: rgba(14, 165, 233, 0.12) !important;
+    box-shadow: 0 4px 24px rgba(14, 165, 233, 0.06) !important;
+}
+
+/* ── Hero bot cards ── */
+[data-theme="light"] .hero-bot-card>div {
+    background: rgba(255, 255, 255, 0.85) !important;
+}
+
+/* ── Footer ── */
+html[data-theme="light"] footer {
+    background: rgba(14, 165, 233, 0.04) !important;
+    border-top-color: rgba(14, 165, 233, 0.12) !important;
+}
+
+[data-theme="light"] .footer-brand-logo,
+[data-theme="light"] .footer-tagline {
+    color: #0d0d2e !important;
+}
+
+[data-theme="light"] .footer-quicklinks a {
+    color: rgba(15, 15, 60, 0.65) !important;
+}
+
+[data-theme="light"] .footer-socials a {
+    background: rgba(14, 165, 233, 0.08) !important;
+    border-color: rgba(14, 165, 233, 0.15) !important;
+    color: #0d0d2e !important;
+}
+
+/* ── About page ── */
+[data-theme="light"] .about-hero {
+    background: transparent !important;
+}
+
+[data-theme="light"] .about-card {
+    background: rgba(255, 255, 255, 0.82) !important;
+    border-color: rgba(14, 165, 233, 0.14) !important;
+}
+
+[data-theme="light"] .about-stat-card {
+    background: rgba(255, 255, 255, 0.82) !important;
+    border-color: rgba(14, 165, 233, 0.14) !important;
+}
+
+/* ── Chat sidebar ── */
+html[data-theme="light"] aside {
+    background: rgba(235, 246, 255, 0.97) !important;
+    border-right-color: rgba(14, 165, 233, 0.12) !important;
+}
+
+[data-theme="light"] aside * {
+    color: #0d0d2e;
+}
+
+/* ── Chat header ── */
+html[data-theme="light"] header {
+    background: rgba(235, 247, 255, 0.92) !important;
+    border-bottom-color: rgba(14, 165, 233, 0.12) !important;
+}
+
+/* ── Chat input area ── */
+html[data-theme="light"] textarea {
+    color: #0d0d2e !important;
+}
+
+[data-theme="light"] textarea::placeholder {
+    color: rgba(15, 15, 60, 0.35) !important;
+}
+
+/* ── Testimonial cards ── */
+html[data-theme="light"] .testimonial-card {
+    background: rgba(255, 255, 255, 0.82) !important;
+    border-color: rgba(14, 165, 233, 0.12) !important;
+}
+
+/* ── CTA section ── */
+html[data-theme="light"] .cta-box {
+    background: linear-gradient(135deg, rgba(14, 165, 233, 0.1), rgba(16, 185, 129, 0.08)) !important;
+    border-color: rgba(14, 165, 233, 0.2) !important;
+}
+
+/* ── Mobile menu dropdown ── */
+[data-theme="light"] [style*="rgba(8,8,18"] {
+    background: rgba(235, 247, 255, 0.97) !important;
+    border-color: rgba(14, 165, 233, 0.18) !important;
+}
+
+/* ── Scrollbar ── */
+[data-theme="light"] ::-webkit-scrollbar-thumb {
+    background: rgba(14, 165, 233, 0.25);
+}
+
+[data-theme="light"] ::-webkit-scrollbar-thumb:hover {
+    background: rgba(14, 165, 233, 0.45);
+}
+
 
 /* ─────────────────────────────────────────────────────────────────────────────
    RESPONSIVE UTILITIES

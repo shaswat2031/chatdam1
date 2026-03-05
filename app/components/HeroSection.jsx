@@ -97,7 +97,7 @@ export default function HeroSection() {
             >
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                     <div style={{ width: 32, height: 32, borderRadius: 8, background: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 3 }}>
-                        <Image src="/ICED.png" alt="ICED" width={26} height={26} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                        <Image src="/ICED.png" alt="ICED" width={26} height={26} style={{ width: '100%', height: '100%', objectFit: 'contain' }} unoptimized />
                     </div>
                     <div style={{ width: 1, height: 16, background: 'rgba(255,255,255,0.15)' }} />
                     <div style={{ width: 32, height: 32, borderRadius: 8, background: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 3 }}>
