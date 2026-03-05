@@ -702,16 +702,16 @@ export default function ChatPage() {
                             </div>
 
                             {/* Input */}
-                            <div style={{ padding: '16px 24px 24px', background: 'rgba(5,5,10,0.5)', backdropFilter: 'blur(20px)', borderTop: '1px solid rgba(255,255,255,0.05)', flexShrink: 0 }}>
+                            <div style={{ padding: '16px 24px 24px', background: isDark ? 'rgba(5,5,10,0.5)' : 'rgba(255,255,255,0.8)', backdropFilter: 'blur(20px)', borderTop: isDark ? '1px solid rgba(255,255,255,0.05)' : '1px solid rgba(14,165,233,0.1)', flexShrink: 0 }}>
                                 <div style={{ maxWidth: 760, margin: '0 auto', position: 'relative' }}>
-                                    <div style={{ display: 'flex', alignItems: 'flex-end', gap: 0, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 18, padding: '12px 12px 12px 16px', transition: 'border-color 0.2s, box-shadow 0.2s' }}
+                                    <div style={{ display: 'flex', alignItems: 'flex-end', gap: 0, background: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(14,165,233,0.04)', border: isDark ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(14,165,233,0.2)', borderRadius: 18, padding: '12px 12px 12px 16px', transition: 'border-color 0.2s, box-shadow 0.2s' }}
                                         onFocusCapture={(e) => { e.currentTarget.style.borderColor = bot.accentBorder; e.currentTarget.style.boxShadow = `0 0 0 3px ${bot.accentSoft}`; }}
-                                        onBlurCapture={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'; e.currentTarget.style.boxShadow = 'none'; }}
+                                        onBlurCapture={(e) => { e.currentTarget.style.borderColor = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(14,165,233,0.2)'; e.currentTarget.style.boxShadow = 'none'; }}
                                     >
                                         <button onClick={() => fileInputRef.current?.click()} title="Attach file"
-                                            style={{ flexShrink: 0, width: 32, height: 32, display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 8, background: 'none', border: 'none', color: 'rgba(255,255,255,0.3)', cursor: 'pointer', alignSelf: 'flex-end', marginBottom: 2 }}
-                                            onMouseEnter={(e) => e.currentTarget.style.color = 'rgba(255,255,255,0.7)'}
-                                            onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(255,255,255,0.3)'}
+                                            style={{ flexShrink: 0, width: 32, height: 32, display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 8, background: 'none', border: 'none', color: isDark ? 'rgba(255,255,255,0.3)' : 'rgba(14,165,233,0.5)', cursor: 'pointer', alignSelf: 'flex-end', marginBottom: 2 }}
+                                            onMouseEnter={(e) => e.currentTarget.style.color = isDark ? 'rgba(255,255,255,0.7)' : 'rgba(14,165,233,0.8)'}
+                                            onMouseLeave={(e) => e.currentTarget.style.color = isDark ? 'rgba(255,255,255,0.3)' : 'rgba(14,165,233,0.5)'}
                                         ><Paperclip size={18} /></button>
                                         <input ref={fileInputRef} type="file" style={{ display: 'none' }} accept="image/*,.pdf,.txt" />
 
@@ -722,7 +722,8 @@ export default function ChatPage() {
                                             onKeyDown={handleKeyDown}
                                             placeholder={bot.placeholder}
                                             rows={1}
-                                            style={{ flex: 1, background: 'none', border: 'none', outline: 'none', color: 'white', fontSize: 15, fontFamily: 'inherit', resize: 'none', padding: '4px 12px', lineHeight: 1.6, maxHeight: 160, overflowY: 'auto' }}
+                                            style={{ flex: 1, background: 'none', border: 'none', outline: 'none', color: isDark ? 'white' : '#0d0d2e', fontSize: 15, fontFamily: 'inherit', resize: 'none', padding: '4px 12px', lineHeight: 1.6, maxHeight: 160, overflowY: 'auto' }}
+                                            className={isDark ? "dark-textarea" : "light-textarea"}
                                         />
 
                                         <motion.button
@@ -730,13 +731,13 @@ export default function ChatPage() {
                                             disabled={!input.trim() || isTyping}
                                             whileHover={input.trim() && !isTyping ? { scale: 1.08 } : {}}
                                             whileTap={input.trim() && !isTyping ? { scale: 0.92 } : {}}
-                                            style={{ flexShrink: 0, width: 36, height: 36, borderRadius: 10, background: input.trim() && !isTyping ? bot.gradient : 'rgba(255,255,255,0.06)', border: 'none', color: input.trim() && !isTyping ? 'white' : 'rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: input.trim() && !isTyping ? 'pointer' : 'not-allowed', transition: 'all 0.2s', alignSelf: 'flex-end', boxShadow: input.trim() && !isTyping ? `0 0 16px ${bot.glow}` : 'none' }}
+                                            style={{ flexShrink: 0, width: 36, height: 36, borderRadius: 10, background: input.trim() && !isTyping ? bot.gradient : (isDark ? 'rgba(255,255,255,0.06)' : 'rgba(14,165,233,0.08)'), border: 'none', color: input.trim() && !isTyping ? 'white' : (isDark ? 'rgba(255,255,255,0.2)' : 'rgba(14,165,233,0.3)'), display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: input.trim() && !isTyping ? 'pointer' : 'not-allowed', transition: 'all 0.2s', alignSelf: 'flex-end', boxShadow: input.trim() && !isTyping ? `0 0 16px ${bot.glow}` : 'none' }}
                                         ><Send size={15} /></motion.button>
                                     </div>
                                     {!isMobile && (
-                                        <p style={{ textAlign: 'center', fontSize: 12, color: 'rgba(200,200,240,0.45)', marginTop: 10 }}>
-                                            Press <kbd style={{ padding: '1px 6px', borderRadius: 4, background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', fontSize: 11 }}>Enter</kbd> to send ·{' '}
-                                            <kbd style={{ padding: '1px 6px', borderRadius: 4, background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', fontSize: 11 }}>Shift+Enter</kbd> for new line
+                                        <p style={{ textAlign: 'center', fontSize: 12, color: isDark ? 'rgba(200,200,240,0.45)' : 'rgba(20,20,70,0.45)', marginTop: 10 }}>
+                                            Press <kbd style={{ padding: '1px 6px', borderRadius: 4, background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(14,165,233,0.06)', border: isDark ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(14,165,233,0.15)', fontSize: 11 }}>Enter</kbd> to send ·{' '}
+                                            <kbd style={{ padding: '1px 6px', borderRadius: 4, background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(14,165,233,0.06)', border: isDark ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(14,165,233,0.15)', fontSize: 11 }}>Shift+Enter</kbd> for new line
                                         </p>
                                     )}
                                 </div>
@@ -749,8 +750,8 @@ export default function ChatPage() {
             <style>{`
         .message-actions { opacity: 0 !important; transition: opacity 0.2s; }
         div:hover > div > .message-actions { opacity: 1 !important; }
-        textarea::placeholder { color: rgba(160,160,200,0.45) !important; }
-        textarea { color: #f0f0ff !important; }
+        .dark-textarea::placeholder { color: rgba(160,160,200,0.45) !important; }
+        .light-textarea::placeholder { color: rgba(20,20,70,0.4) !important; }
       `}</style>
         </div>
     );

@@ -7,6 +7,7 @@ import {
     Sparkles, Eye, EyeOff, Mail, Lock, User, ArrowRight,
     Github, Chrome, CheckCircle2
 } from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
 
 function FloatingShape({ style }) {
     return (
@@ -22,7 +23,7 @@ function FloatingShape({ style }) {
     );
 }
 
-function InputField({ icon: Icon, label, type, value, onChange, placeholder, id }) {
+function InputField({ icon: Icon, label, type, value, onChange, placeholder, id, isDark }) {
     const [focused, setFocused] = useState(false);
     const [showPass, setShowPass] = useState(false);
 
@@ -32,7 +33,7 @@ function InputField({ icon: Icon, label, type, value, onChange, placeholder, id 
                 display: 'block',
                 fontSize: 13,
                 fontWeight: 500,
-                color: 'rgba(255,255,255,0.6)',
+                color: isDark ? 'rgba(255,255,255,0.6)' : 'rgba(20,20,70,0.6)',
                 marginBottom: 8,
             }}>
                 {label}
@@ -46,7 +47,7 @@ function InputField({ icon: Icon, label, type, value, onChange, placeholder, id 
                     left: 14,
                     top: '50%',
                     transform: 'translateY(-50%)',
-                    color: focused ? '#8b5cf6' : 'rgba(255,255,255,0.3)',
+                    color: focused ? '#8b5cf6' : (isDark ? 'rgba(255,255,255,0.3)' : 'rgba(20,20,70,0.3)'),
                     transition: 'color 0.2s',
                     pointerEvents: 'none',
                 }} />
@@ -61,11 +62,11 @@ function InputField({ icon: Icon, label, type, value, onChange, placeholder, id 
                     autoComplete={type === 'password' ? 'current-password' : type === 'email' ? 'email' : 'name'}
                     style={{
                         width: '100%',
-                        background: focused ? 'rgba(139,92,246,0.06)' : 'rgba(255,255,255,0.03)',
-                        border: `1px solid ${focused ? 'rgba(139,92,246,0.5)' : 'rgba(255,255,255,0.1)'}`,
+                        background: focused ? (isDark ? 'rgba(139,92,246,0.06)' : 'rgba(139,92,246,0.04)') : (isDark ? 'rgba(255,255,255,0.03)' : 'rgba(20,20,70,0.03)'),
+                        border: `1px solid ${focused ? 'rgba(139,92,246,0.5)' : (isDark ? 'rgba(255,255,255,0.1)' : 'rgba(20,20,70,0.1)')}`,
                         borderRadius: 12,
                         padding: '12px 16px 12px 42px',
-                        color: 'white',
+                        color: isDark ? 'white' : '#0d0d2e',
                         fontSize: 14,
                         fontFamily: 'inherit',
                         outline: 'none',
@@ -85,7 +86,7 @@ function InputField({ icon: Icon, label, type, value, onChange, placeholder, id 
                             transform: 'translateY(-50%)',
                             background: 'none',
                             border: 'none',
-                            color: 'rgba(255,255,255,0.3)',
+                            color: isDark ? 'rgba(255,255,255,0.3)' : 'rgba(20,20,70,0.3)',
                             cursor: 'pointer',
                             padding: 0,
                             display: 'flex',
@@ -106,6 +107,7 @@ export default function LoginPage() {
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
     const router = useRouter();
+    const { isDark } = useTheme();
 
     const handleChange = (field) => (e) => setForm({ ...form, [field]: e.target.value });
 
@@ -174,22 +176,21 @@ export default function LoginPage() {
                     transition={{ duration: 0.6 }}
                     style={{ display: 'flex', alignItems: 'center', gap: 10, position: 'relative', zIndex: 1 }}
                 >
-                    <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
+                    <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
                         <div style={{
-                            width: 40,
-                            height: 40,
+                            height: 46, width: 'auto',
+                            display: 'flex', alignItems: 'center', justifyContent: 'center',
                             borderRadius: 12,
-                            background: 'linear-gradient(135deg, #8b5cf6, #3b82f6)',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            boxShadow: '0 0 20px rgba(139,92,246,0.4)',
+                            padding: '4px 10px',
+                            background: 'rgba(255,255,255,0.92)',
+                            boxShadow: '0 0 24px rgba(139,92,246,0.3)',
                         }}>
-                            <Sparkles size={20} color="white" />
+                            <img
+                                src="/DamChat Logo.png"
+                                alt="DamChat Logo"
+                                style={{ height: 38, width: 'auto', objectFit: 'contain', display: 'block' }}
+                            />
                         </div>
-                        <span style={{ fontSize: 22, fontWeight: 700, color: 'white', fontFamily: 'Space Grotesk' }}>
-                            Neural<span className="gradient-text">Chat</span>
-                        </span>
                     </Link>
                 </motion.div>
 
@@ -233,7 +234,7 @@ export default function LoginPage() {
                         lineHeight: 1.7,
                         maxWidth: 360,
                     }}>
-                        Join thousands of professionals who use NeuralChat to work smarter, write better, and think deeper.
+                        Join professionals who use DamChat to manage dam safety, answer regulatory queries, and work smarter.
                     </p>
 
                     {/* Features list */}
@@ -278,7 +279,7 @@ export default function LoginPage() {
                     }}
                 >
                     <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.6)', lineHeight: 1.6, marginBottom: 12, fontStyle: 'italic' }}>
-                        "NeuralChat has completely changed how I work. It's not just a chatbot — it's a thinking partner."
+                        "DamChat has completely transformed how we reference CWC guidelines and standard operating procedures."
                     </p>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                         <div style={{
@@ -307,7 +308,7 @@ export default function LoginPage() {
                 alignItems: 'center',
                 justifyContent: 'center',
                 padding: '48px 40px',
-                background: 'rgba(5,5,10,0.6)',
+                background: isDark ? 'rgba(5,5,10,0.6)' : 'white',
                 position: 'relative',
                 overflowY: 'auto',
             }}>
@@ -320,8 +321,8 @@ export default function LoginPage() {
                     {/* Tab switcher */}
                     <div style={{
                         display: 'flex',
-                        background: 'rgba(255,255,255,0.04)',
-                        border: '1px solid rgba(255,255,255,0.08)',
+                        background: isDark ? 'rgba(255,255,255,0.04)' : 'transparent',
+                        border: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(20,20,70,0.1)'}`,
                         borderRadius: 14,
                         padding: 4,
                         marginBottom: 36,
@@ -336,16 +337,15 @@ export default function LoginPage() {
                                     borderRadius: 10,
                                     border: 'none',
                                     background: mode === m
-                                        ? 'linear-gradient(135deg, rgba(139,92,246,0.3), rgba(59,130,246,0.2))'
+                                        ? (isDark ? 'linear-gradient(135deg, rgba(139,92,246,0.3), rgba(59,130,246,0.2))' : 'rgba(139,92,246,0.1)')
                                         : 'transparent',
-                                    color: mode === m ? 'white' : 'rgba(255,255,255,0.4)',
+                                    color: mode === m ? (isDark ? 'white' : '#8b5cf6') : (isDark ? 'rgba(255,255,255,0.4)' : 'rgba(20,20,70,0.4)'),
                                     fontSize: 14,
                                     fontWeight: 600,
                                     cursor: 'pointer',
                                     transition: 'all 0.2s',
                                     fontFamily: 'inherit',
                                     textTransform: 'capitalize',
-                                    borderRight: mode === m ? '1px solid rgba(139,92,246,0.2)' : 'none',
                                 }}
                             >
                                 {m === 'login' ? 'Sign In' : 'Create Account'}
@@ -391,14 +391,14 @@ export default function LoginPage() {
                                     <h2 style={{
                                         fontSize: 28,
                                         fontWeight: 800,
-                                        color: 'white',
+                                        color: isDark ? 'white' : '#0d0d2e',
                                         marginBottom: 8,
                                         fontFamily: 'Space Grotesk, sans-serif',
                                         letterSpacing: '-0.5px',
                                     }}>
                                         {mode === 'login' ? 'Welcome back' : 'Create your account'}
                                     </h2>
-                                    <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: 14 }}>
+                                    <p style={{ color: isDark ? 'rgba(255,255,255,0.4)' : 'rgba(20,20,70,0.5)', fontSize: 14 }}>
                                         {mode === 'login'
                                             ? 'Sign in to continue your conversation'
                                             : 'Start chatting with AI in seconds'
@@ -420,17 +420,17 @@ export default function LoginPage() {
                                             gap: 8,
                                             padding: '11px',
                                             borderRadius: 12,
-                                            background: 'rgba(255,255,255,0.05)',
-                                            border: '1px solid rgba(255,255,255,0.1)',
-                                            color: 'white',
+                                            background: isDark ? 'rgba(255,255,255,0.05)' : 'white',
+                                            border: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(20,20,70,0.1)'}`,
+                                            color: isDark ? 'white' : '#0d0d2e',
                                             fontSize: 13,
                                             fontWeight: 500,
                                             cursor: 'pointer',
                                             fontFamily: 'inherit',
                                             transition: 'all 0.2s',
                                         }}
-                                        onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.08)'}
-                                        onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.05)'}
+                                        onMouseEnter={(e) => e.currentTarget.style.background = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(20,20,70,0.03)'}
+                                        onMouseLeave={(e) => e.currentTarget.style.background = isDark ? 'rgba(255,255,255,0.05)' : 'white'}
                                     >
                                         <svg width="16" height="16" viewBox="0 0 24 24">
                                             <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
@@ -452,17 +452,17 @@ export default function LoginPage() {
                                             gap: 8,
                                             padding: '11px',
                                             borderRadius: 12,
-                                            background: 'rgba(255,255,255,0.05)',
-                                            border: '1px solid rgba(255,255,255,0.1)',
-                                            color: 'white',
+                                            background: isDark ? 'rgba(255,255,255,0.05)' : 'white',
+                                            border: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(20,20,70,0.1)'}`,
+                                            color: isDark ? 'white' : '#0d0d2e',
                                             fontSize: 13,
                                             fontWeight: 500,
                                             cursor: 'pointer',
                                             fontFamily: 'inherit',
                                             transition: 'all 0.2s',
                                         }}
-                                        onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.08)'}
-                                        onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.05)'}
+                                        onMouseEnter={(e) => e.currentTarget.style.background = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(20,20,70,0.03)'}
+                                        onMouseLeave={(e) => e.currentTarget.style.background = isDark ? 'rgba(255,255,255,0.05)' : 'white'}
                                     >
                                         <Github size={16} />
                                         GitHub
@@ -476,11 +476,11 @@ export default function LoginPage() {
                                     gap: 16,
                                     marginBottom: 24,
                                 }}>
-                                    <div style={{ flex: 1, height: 1, background: 'rgba(255,255,255,0.08)' }} />
-                                    <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.25)', whiteSpace: 'nowrap' }}>
+                                    <div style={{ flex: 1, height: 1, background: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(20,20,70,0.1)' }} />
+                                    <span style={{ fontSize: 12, color: isDark ? 'rgba(255,255,255,0.25)' : 'rgba(20,20,70,0.4)', whiteSpace: 'nowrap' }}>
                                         or continue with email
                                     </span>
-                                    <div style={{ flex: 1, height: 1, background: 'rgba(255,255,255,0.08)' }} />
+                                    <div style={{ flex: 1, height: 1, background: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(20,20,70,0.1)' }} />
                                 </div>
 
                                 {/* Form */}
@@ -494,6 +494,7 @@ export default function LoginPage() {
                                             value={form.name}
                                             onChange={handleChange('name')}
                                             placeholder="John Doe"
+                                            isDark={isDark}
                                         />
                                     )}
                                     <InputField
@@ -504,6 +505,7 @@ export default function LoginPage() {
                                         value={form.email}
                                         onChange={handleChange('email')}
                                         placeholder="you@company.com"
+                                        isDark={isDark}
                                     />
                                     <InputField
                                         id="password"
@@ -513,6 +515,7 @@ export default function LoginPage() {
                                         value={form.password}
                                         onChange={handleChange('password')}
                                         placeholder={mode === 'signup' ? 'Min. 8 characters' : '••••••••'}
+                                        isDark={isDark}
                                     />
 
                                     {mode === 'login' && (
@@ -579,7 +582,7 @@ export default function LoginPage() {
                                 {mode === 'signup' && (
                                     <p style={{
                                         fontSize: 12,
-                                        color: 'rgba(255,255,255,0.25)',
+                                        color: isDark ? 'rgba(255,255,255,0.25)' : 'rgba(20,20,70,0.5)',
                                         textAlign: 'center',
                                         marginTop: 16,
                                         lineHeight: 1.5,
