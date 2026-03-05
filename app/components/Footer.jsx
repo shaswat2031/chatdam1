@@ -24,10 +24,9 @@ export default function Footer() {
     const brandColor = isDark ? 'white' : '#0d0d2e';
 
     return (
-        <footer style={{
+        <footer className="pt-12 md:pt-[60px] pb-8 md:pb-[40px] px-6" style={{
             background: footerBg,
             borderTop: `1px solid ${border}`,
-            padding: '60px 24px 40px',
             position: 'relative',
             overflow: 'hidden',
         }}>
@@ -39,12 +38,12 @@ export default function Footer() {
                 filter: 'blur(40px)', pointerEvents: 'none',
             }} />
 
-            <div style={{ maxWidth: 900, margin: '0 auto' }}>
+            <div style={{ maxWidth: 900, margin: '0 auto' }} className="w-full">
                 {/* Main row */}
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 32, marginBottom: 48 }}>
+                <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-12 w-full">
 
                     {/* Brand */}
-                    <div>
+                    <div className="flex flex-col items-center md:items-start text-center md:text-left">
                         <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', marginBottom: 12 }}>
                             <div style={{
                                 height: 44, width: 'auto',
@@ -56,15 +55,15 @@ export default function Footer() {
                                 <img src="/DamChat Logo copy.png" alt="DamChat" style={{ height: 36, width: 'auto', objectFit: 'contain', display: 'block' }} />
                             </div>
                         </Link>
-                        <p style={{ color: textMuted, fontSize: 14, lineHeight: 1.7, maxWidth: 320 }}>
+                        <p style={{ color: textMuted, fontSize: 14, lineHeight: 1.7, maxWidth: 320 }} className="text-center md:text-left">
                             AI-powered assistants for dam safety and water resource management —
                             built on official CWC documents and government publications.
                         </p>
                     </div>
 
                     {/* Nav links + socials */}
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 20 }}>
-                        <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap', justifyContent: 'flex-end' }}>
+                    <div className="flex flex-col items-center md:items-end gap-5">
+                        <div className="flex gap-4 md:gap-6 flex-wrap justify-center md:justify-end">
                             {[
                                 { label: 'Features', href: '#features' },
                                 { label: 'Assistants', href: '/chat' },
@@ -80,7 +79,7 @@ export default function Footer() {
                             ))}
                         </div>
 
-                        <div style={{ display: 'flex', gap: 10 }}>
+                        <div className="flex gap-3 justify-center md:justify-end">
                             {socialLinks.map(({ icon: Icon, href, label }) => (
                                 <a key={label} href={href} aria-label={label}
                                     style={{ width: 36, height: 36, borderRadius: 10, background: iconBg, border: `1px solid ${iconBorder}`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: iconColor, textDecoration: 'none', transition: 'all 0.2s' }}
@@ -95,9 +94,9 @@ export default function Footer() {
                 </div>
 
                 {/* Bottom bar */}
-                <div style={{ borderTop: `1px solid ${border}`, paddingTop: 28, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
+                <div className="pt-7 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left" style={{ borderTop: `1px solid ${border}` }}>
                     <p style={{ color: textFaint, fontSize: 13 }}>© 2025 DamChat. All rights reserved.</p>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <div className="flex items-center gap-1.5 justify-center md:justify-end">
                         <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#22c55e', boxShadow: '0 0 8px #22c55e', animation: 'pulse-glow 2s ease-in-out infinite' }} />
                         <span style={{ color: textFaint, fontSize: 13 }}>All systems operational</span>
                     </div>
