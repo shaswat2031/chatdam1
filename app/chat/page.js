@@ -7,7 +7,8 @@ import {
     Sparkles, Send, Plus, ChevronLeft, Settings,
     Trash2, Copy, Check, Paperclip, User, MessageSquare,
     RefreshCw, ThumbsUp, ThumbsDown, FileText, ShieldCheck,
-    Droplets, BookOpen, Menu, ChevronDown, ArrowRight
+    Droplets, BookOpen, Menu, ChevronDown, ArrowRight,
+    Sun, Moon
 } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 
@@ -79,6 +80,7 @@ const INITIAL_HISTORY = [
 
 // ── Typing indicator ───────────────────────────────────────────────────────────
 function TypingIndicator({ bot }) {
+    const { isDark } = useTheme();
     return (
         <motion.div
             initial={{ opacity: 0, y: 10 }}
@@ -95,8 +97,8 @@ function TypingIndicator({ bot }) {
                 <bot.icon size={14} color="white" />
             </div>
             <div style={{
-                background: 'rgba(255,255,255,0.04)',
-                border: '1px solid rgba(255,255,255,0.08)',
+                background: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(14,165,233,0.06)',
+                border: isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(14,165,233,0.15)',
                 borderRadius: '4px 16px 16px 16px',
                 padding: '14px 18px',
                 display: 'flex', gap: 5, alignItems: 'center',
@@ -112,6 +114,7 @@ function TypingIndicator({ bot }) {
 // ── Message bubble ─────────────────────────────────────────────────────────────
 function MessageBubble({ message, bot }) {
     const [copied, setCopied] = useState(false);
+    const { isDark } = useTheme();
     const isUser = message.role === 'user';
 
     const copyText = () => {
@@ -128,15 +131,15 @@ function MessageBubble({ message, bot }) {
                 const lang = match?.[1] || 'code';
                 const code = match?.[2] || part.slice(3, -3);
                 return (
-                    <div key={i} style={{ background: 'rgba(0,0,0,0.5)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 12, margin: '12px 0', overflow: 'hidden' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 16px', background: 'rgba(255,255,255,0.03)', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-                            <span style={{ fontSize: 12, color: 'rgba(200,200,240,0.55)', fontFamily: 'monospace' }}>{lang}</span>
-                            <button onClick={copyText} style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.3)', cursor: 'pointer', fontSize: 12, display: 'flex', alignItems: 'center', gap: 4, padding: '2px 6px', borderRadius: 6 }}>
-                                {copied ? <Check size={12} color="#10b981" /> : <Copy size={12} />}
+                    <div key={i} style={{ background: isDark ? 'rgba(0,0,0,0.5)' : '#f8fafc', border: isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(14,165,233,0.2)', borderRadius: 12, margin: '12px 0', overflow: 'hidden' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 16px', background: isDark ? 'rgba(255,255,255,0.03)' : 'rgba(14,165,233,0.08)', borderBottom: isDark ? '1px solid rgba(255,255,255,0.06)' : '1px solid rgba(14,165,233,0.1)' }}>
+                            <span style={{ fontSize: 12, color: isDark ? 'rgba(200,200,240,0.55)' : 'rgba(20,20,70,0.6)', fontFamily: 'monospace' }}>{lang}</span>
+                            <button onClick={copyText} style={{ background: 'none', border: 'none', color: isDark ? 'rgba(255,255,255,0.3)' : 'rgba(14,165,233,0.6)', cursor: 'pointer', fontSize: 12, display: 'flex', alignItems: 'center', gap: 4, padding: '2px 6px', borderRadius: 6 }}>
+                                {copied ? <Check size={12} color={bot.accent} /> : <Copy size={12} />}
                                 {copied ? 'Copied!' : 'Copy'}
                             </button>
                         </div>
-                        <pre style={{ margin: 0, padding: '16px', fontSize: 13, lineHeight: 1.6, color: '#e2e8f0', fontFamily: "'Fira Code', monospace", overflowX: 'auto', whiteSpace: 'pre' }}>
+                        <pre style={{ margin: 0, padding: '16px', fontSize: 13, lineHeight: 1.6, color: isDark ? '#e2e8f0' : '#1e293b', fontFamily: "'Fira Code', monospace", overflowX: 'auto', whiteSpace: 'pre' }}>
                             <code>{code.trim()}</code>
                         </pre>
                     </div>
@@ -144,7 +147,7 @@ function MessageBubble({ message, bot }) {
             }
             const lines = part.split('\n');
             return lines.map((line, j) => {
-                let rendered = line.replace(/\*\*(.*?)\*\*/g, '<strong style="color:white;font-weight:600">$1</strong>');
+                let rendered = line.replace(/\*\*(.*?)\*\*/g, `<strong style="color:${isDark ? 'white' : '#0d0d2e'};font-weight:600">$1</strong>`);
                 rendered = rendered.replace(/\*(.*?)\*/g, '<em>$1</em>');
                 if (rendered.startsWith('- ')) {
                     return (
@@ -184,11 +187,11 @@ function MessageBubble({ message, bot }) {
             )}
             <div style={{ maxWidth: '78%', display: 'flex', flexDirection: 'column', gap: 6 }}>
                 <div style={{
-                    background: isUser ? bot.gradient : 'rgba(255,255,255,0.04)',
-                    border: isUser ? 'none' : '1px solid rgba(255,255,255,0.07)',
+                    background: isUser ? bot.gradient : (isDark ? 'rgba(255,255,255,0.04)' : 'white'),
+                    border: isUser ? 'none' : (isDark ? '1px solid rgba(255,255,255,0.07)' : '1px solid rgba(14,165,233,0.2)'),
                     borderRadius: isUser ? '18px 18px 4px 18px' : '4px 18px 18px 18px',
                     padding: '12px 16px', fontSize: 14,
-                    color: isUser ? 'white' : 'rgba(255,255,255,0.82)',
+                    color: isUser ? 'white' : (isDark ? 'rgba(255,255,255,0.82)' : '#1e293b'),
                     lineHeight: 1.65,
                     boxShadow: isUser ? `0 4px 20px ${bot.glow}` : 'none',
                 }}>
@@ -198,9 +201,9 @@ function MessageBubble({ message, bot }) {
                     <div style={{ display: 'flex', gap: 4, opacity: 0, transition: 'opacity 0.2s' }} className="message-actions">
                         {[{ icon: ThumbsUp, label: 'Like' }, { icon: ThumbsDown, label: 'Dislike' }, { icon: Copy, label: 'Copy', action: copyText }, { icon: RefreshCw, label: 'Regenerate' }].map(({ icon: Icon, label, action }) => (
                             <button key={label} onClick={action} title={label}
-                                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 28, height: 28, borderRadius: 8, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.35)', cursor: 'pointer', transition: 'all 0.15s' }}
-                                onMouseEnter={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.7)'; e.currentTarget.style.background = 'rgba(255,255,255,0.08)'; }}
-                                onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.35)'; e.currentTarget.style.background = 'rgba(255,255,255,0.04)'; }}
+                                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 28, height: 28, borderRadius: 8, background: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(14,165,233,0.05)', border: isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(14,165,233,0.15)', color: isDark ? 'rgba(255,255,255,0.35)' : 'rgba(14,165,233,0.6)', cursor: 'pointer', transition: 'all 0.15s' }}
+                                onMouseEnter={(e) => { e.currentTarget.style.color = isDark ? 'rgba(255,255,255,0.7)' : 'rgba(14,165,233,0.9)'; e.currentTarget.style.background = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(14,165,233,0.1)' }}
+                                onMouseLeave={(e) => { e.currentTarget.style.color = isDark ? 'rgba(255,255,255,0.35)' : 'rgba(14,165,233,0.6)'; e.currentTarget.style.background = isDark ? 'rgba(255,255,255,0.04)' : 'rgba(14,165,233,0.05)' }}
                             ><Icon size={12} /></button>
                         ))}
                     </div>
@@ -391,7 +394,7 @@ export default function ChatPage() {
     const messagesEndRef = useRef(null);
     const textareaRef = useRef(null);
     const fileInputRef = useRef(null);
-    const { isDark } = useTheme();
+    const { isDark, toggle } = useTheme();
 
     // Sidebar theme tokens
     const sidebarBg = isDark ? 'rgba(10,10,20,0.97)' : 'rgba(235,246,255,0.98)';
@@ -613,31 +616,36 @@ export default function ChatPage() {
             <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', position: 'relative' }} className="chat-bg">
 
                 {/* Top bar */}
-                <header style={{ height: 52, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 10px 0 12px', borderBottom: '1px solid rgba(255,255,255,0.05)', background: 'rgba(5,5,10,0.6)', backdropFilter: 'blur(20px)', flexShrink: 0, gap: 8 }}>
+                <header style={{ height: 52, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 10px 0 12px', borderBottom: isDark ? '1px solid rgba(255,255,255,0.05)' : '1px solid rgba(14,165,233,0.1)', background: isDark ? 'rgba(5,5,10,0.6)' : 'rgba(255,255,255,0.7)', backdropFilter: 'blur(20px)', flexShrink: 0, gap: 8 }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8, minWidth: 0 }}>
-                        <button onClick={() => setSidebarOpen(!sidebarOpen)} style={{ width: 32, height: 32, borderRadius: 9, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.6)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', flexShrink: 0 }}>
+                        <button onClick={() => setSidebarOpen(!sidebarOpen)} style={{ width: 32, height: 32, borderRadius: 9, background: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(14,165,233,0.04)', border: isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(14,165,233,0.15)', color: isDark ? 'rgba(255,255,255,0.6)' : 'rgba(14,165,233,0.7)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', flexShrink: 0 }}>
                             {sidebarOpen ? <ChevronLeft size={15} /> : <Menu size={15} />}
                         </button>
                         {bot && (
-                            <div style={{ display: 'flex', alignItems: 'center', gap: 7, padding: '5px 10px', borderRadius: 9, background: bot.accentSoft, border: `1px solid ${bot.accentBorder}`, minWidth: 0, overflow: 'hidden' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 7, padding: '5px 10px', borderRadius: 9, background: isDark ? bot.accentSoft : 'rgba(14,165,233,0.15)', border: `1px solid ${bot.accentBorder}`, minWidth: 0, overflow: 'hidden' }}>
                                 <div style={{ width: 7, height: 7, borderRadius: '50%', background: bot.accent, boxShadow: `0 0 5px ${bot.accent}`, flexShrink: 0 }} />
-                                <span style={{ fontSize: 13, fontWeight: 700, color: 'white', whiteSpace: 'nowrap' }}>{bot.name}</span>
-                                {!isMobile && <span style={{ fontSize: 11, color: bot.accent, whiteSpace: 'nowrap' }}>{bot.tagline}</span>}
+                                <span style={{ fontSize: 13, fontWeight: 700, color: isDark ? 'white' : '#0d0d2e', whiteSpace: 'nowrap' }}>{bot.name}</span>
+                                {!isMobile && <span style={{ fontSize: 11, color: isDark ? bot.accent : '#0284c7', whiteSpace: 'nowrap' }}>{bot.tagline}</span>}
                             </div>
                         )}
                     </div>
 
                     <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexShrink: 0 }}>
+                        <button onClick={toggle} title="Toggle theme"
+                            style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: isMobile ? '6px' : '6px 8px', borderRadius: 9, background: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(14,165,233,0.04)', border: isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(14,165,233,0.15)', color: isDark ? 'rgba(255,255,255,0.5)' : 'rgba(14,165,233,0.6)', cursor: 'pointer', fontFamily: 'inherit' }}
+                        >
+                            {isDark ? <Sun size={14} /> : <Moon size={14} />}
+                        </button>
                         {bot && (
                             <button onClick={switchBot} title="Switch assistant"
-                                style={{ display: 'flex', alignItems: 'center', gap: isMobile ? 0 : 5, padding: isMobile ? '6px 8px' : '6px 10px', borderRadius: 9, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.5)', fontSize: 12, cursor: 'pointer', fontFamily: 'inherit' }}
+                                style={{ display: 'flex', alignItems: 'center', gap: isMobile ? 0 : 5, padding: isMobile ? '6px 8px' : '6px 10px', borderRadius: 9, background: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(14,165,233,0.04)', border: isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(14,165,233,0.15)', color: isDark ? 'rgba(255,255,255,0.5)' : 'rgba(14,165,233,0.7)', fontSize: 12, cursor: 'pointer', fontFamily: 'inherit' }}
                             >
                                 <ChevronDown size={13} />
                                 {!isMobile && ' Switch Bot'}
                             </button>
                         )}
                         <button onClick={newChat} title="Clear chat"
-                            style={{ display: 'flex', alignItems: 'center', gap: isMobile ? 0 : 5, padding: isMobile ? '6px 8px' : '6px 10px', borderRadius: 9, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.5)', fontSize: 12, cursor: 'pointer', fontFamily: 'inherit' }}
+                            style={{ display: 'flex', alignItems: 'center', gap: isMobile ? 0 : 5, padding: isMobile ? '6px 8px' : '6px 10px', borderRadius: 9, background: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(14,165,233,0.04)', border: isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(14,165,233,0.15)', color: isDark ? 'rgba(255,255,255,0.5)' : 'rgba(14,165,233,0.7)', fontSize: 12, cursor: 'pointer', fontFamily: 'inherit' }}
                         >
                             <Trash2 size={13} />
                             {!isMobile && ' Clear'}
